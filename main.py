@@ -15,7 +15,7 @@ con = sqlite3.connect(DB_NAME)
 c = con.cursor()
 global post
 
-
+# Send a media if accepted support gif and pics(not a command function)
 async def send_media(url, caption, context, update, sendTo):
     gif_format = ['gif', 'giv']
     pic_format = ['png', 'jpg']
@@ -33,13 +33,13 @@ async def send_media(url, caption, context, update, sendTo):
         except:
             pass
 
-
+# start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     buttons = [[KeyboardButton('/post')]]
     await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!",
                                    reply_markup=ReplyKeyboardMarkup(buttons))
 
-
+# show a post and asks for approve
 async def post(update: Update, context: ContextTypes.DEFAULT_TYPE):
     global post
     c.execute("""SELECT * FROM meme WHERE pub=0 ORDER BY score DESC""")
